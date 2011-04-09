@@ -15,7 +15,7 @@ views = Module(__name__, 'views')
 
 @views.route('/')
 def index():
-    """Render website's index page."""
+    """HOME PAGE"""
     return render_template('index.html')
 
 
