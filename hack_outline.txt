@@ -1,0 +1,29 @@
+1. Presentations:
+	mongoDB:
+		-agile&scalable!
+
+	Hyper Public:
+		pictures with tags
+
+	etsy:
+		pictures with tags, again
+
+	boxxee:
+		bullshit
+
+	fluid info
+		stuff about coding
+	hunch
+		twitter stuff
+	nodejitsu
+
+....
+
+	yipit
+		short
+	fridge
+		picture sharing
+	getglue
+		duh
+	tumblr
+		stuff, redeux
