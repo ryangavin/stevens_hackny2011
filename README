@@ -2,7 +2,15 @@ Stevens Institute of Technology - HackNY2011
 
 API Keys:
 yipit: uqfEMBjPGCyfcxNV
-hunch: app_secret: ac1dfa282b4f6ffc1dd061b5964ff92423a72f9b app_id: 3145664
+hunch: 
+    app_secret: ac1dfa282b4f6ffc1dd061b5964ff92423a72f9b 
+    app_id: 3145664
+hyperpublic:
+    Client ID: Nr3IYmc7W04UubgMxLinOufTBJLhNQYJwO4pMA2N
+    Client Secret: F8tCiOOwnIZZmB6snMe8MwjffEJsrgHoK1YcGN1E 
+    Request Token URL http://hyperpublic.com/oauth/request_token 
+    Access Token URL http://hyperpublic.com/oauth/access_token 
+    Authorize URL http://hyperpublic.com/oauth/authorize 
 
 Ryan 
 Simon
