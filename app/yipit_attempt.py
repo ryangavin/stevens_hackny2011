@@ -1,19 +1,21 @@
-import json
+import simplejson as json
 import urllib
 
+from google.appengine.api import urlfetch
 #base might be made global
 #lat, lon, rad are integers
 #returns all deals in that radius
-def request_deals(lat = 40.0, lon = -70.0, rad = 300.0, tags= {'music' , 'movies' , 'food', 'restaurants'}):
+def request_deals(lat , lon , rad=300 , tags=[] ):
 	tag_str = ''
 	for each in tags:
 		tag_str += each.lower()+','
 	tag_str += 'P3'
 	base = 'http://api.yipit.com/v1/deals/?key=uqfEMBjPGCyfcxNV&'
 	out_deals= [];
-	pagedata = urllib.urlopen(base+'&lat='+str(lat)+"&lon="+str(lon)+'&radius='+str(rad)+'&tag='+tag_str).read()
-	pagedata = json.loads(pagedata)
-	if pagedata['meta']['code'] == 200:
+#	pagedata = urlfetch.fetch(base+'&lat='+str(lat)+"&lon="+str(lon)+'&radius='+str(rad)+'&tag='+tag_str)
+	pagedata = urlfetch.fetch(base+'&lat='+"40"+"&lon="+"-73"+'&radius='+"300"+'&tag='+"turn,coffee,restaurant,tea")
+	if pagedata.status_code == 200:
+		pagedata = json.loads(pagedata.content)
 		for each in pagedata['response']['deals']:
 			out_deals.append(each)
 	else:
