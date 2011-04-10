@@ -6,11 +6,11 @@ application.
 """
 from google.appengine.api import mail
 import hyper
-from flask import Module, escape, render_template, request, redirect, session, url_for
+from flask import Module, url_for, render_template, request, redirect
 from models import Todo, User
 from forms import TodoForm, EmailForm
-from decorator import check_login
-import hunch
+import hunch 
+from decorator import check_login, login_required
 import geo
 import main
 import settings
@@ -27,13 +27,26 @@ def test():
 @views.route('/')
 def index():
 	"""HOME PAGE"""
-	#tags = hunch.get_tags()
 	return render_template('index.html')
+	#tags = hunch.get_tags()
 	#return main.main()
+	
+@views.route('/main')
+def ma():
+	return main.main()
+
+@views.route('/login/', methods=['POST', 'GET'])
+def login():
+    """Handle login response from hunch"""
+    key = request.args.get('auth_token_key')
+    user_id = request.args.get('user_id')
+    user = User(user_id=user_id, auth_token_key=key)
+    user.put()
+    return render_template('login.html',key=key, userid=user_id)
 	
 @views.route('/slogin')
 def slogin():
-	if 'user_id' in session:
+	if 'user_id' in session and session['user_id'] != None:
 		return 'Logged in as %s' % escape(session['user_id'])
 	else:
 		return redirect('http://hunch.com/authorize/v1/?app_id=3145664&next=/')
@@ -44,15 +57,29 @@ def login():
 	"""Handle login response from hunch"""
 	session['auth_token_key'] = request.args.get('auth_token_key')
 	session['user_id'] = request.args.get('user_id')
-	return render_template('login.html')
+	return redirect(url_for('slogin'))
+	
+@views.route('/logout')
+def logout():
+    # remove the username from the session if its there
+	session.pop('user_id', None)
+	session.pop('auth_token_key', None)
+	return redirect(url_for('index'))
+
 
 @views.route('/todo/')
+@login_required	
 def todo_list():
     """Simple todo page."""
     form = TodoForm()
     todos = Todo.all().order('-created_at')
     return render_template('todo.html', form=form,
             todos=todos)
+
+
+@views.route('/auth')
+def loggedin():
+    return render_template('login.html')
 
 @views.route('/todo/add', methods=["POST"])
 def add_todo():

@@ -1,10 +1,6 @@
 from urllib import urlopen
-from flask import urlfor
-import simplejson as json
 
-def get_pos():
-    pos = []
-
-    data = urllib.urlopen(urlfor('geo')).read()
-    data = json.loads(data)
+def get_pos(ip):
+    data = urlopen("http://api.ipinfodb.com/v3/ip-city/?key=8513611b441b3b403951e27afa47d78d12bae728678a06b49e1a30719a31ea8d&ip="+ip).read()
+    data = data.split(";")
     return data
