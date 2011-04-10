@@ -1,0 +1,51 @@
+h1. Hyperpublic API PHP Wrapper
+
+p. Much to come including proper documentation and tests.
+
+h2. Simple Usage
+
+p. A developer can interact with the Hyperpublic API and this PHP library by using a number of methods on a Hyperpublic object. The available methods are @show@, @find@, and @create@. A Hyperpublic object can be either a person (@people@), a place (@places@), or a thing (@thing@).
+
+h2. Some Examples
+
+p. First we need to create a connection to Hyperpublic using your API keys.
+
+bc. $hyperpublic = new Hyperpublic(CONSUMER_KEY,CONSUMER_SECRET);
+
+p. Returns a person with the ID 4.
+
+bc. $me = $hyperpublic->people->show(4);
+
+p. You can now easily access any available information about me.
+
+p. This is how you get my name.
+
+bc. echo $me->headline; 
+
+p. And this is how you get my tags.
+
+bc. foreach($me->tags as $tag) { 
+       echo $tag; 
+    }
+
+p. The following returns a search for people tagged "developer".
+
+bc. $developers = $hyperpublic->people->find(array('tags' => 'developer'));
+
+p. We can now easily retrieve photographs of the developers.
+
+bc. foreach($developers as $developer){     
+        echo "<img src='{$developer->image->src_large}'/>";
+    }      
+
+p. Say we want to narrow that search to a neighborhood and return no more than 10.
+
+bc. $brooklynDevs = $hyperpublic->people->find(array('tags' => 'developer', 'location[neighborhood]' => 'williamsburg', 'limit' => '10'));
+
+p. Let's create a place.
+
+bc. $myHouse = $hyperpublic->place->create(array('name' => 'my house','category' => 'home','tag_list' => '["cat","nintendo wii","coffee","brooklyn"]'));
+
+p. Check out @example.php@ for more detailed examples.
+
+p. Please join the "Hyperpublic API mailing list":http://groups.google.com/group/hyperpublic-api-developers?pli=1 for the most recent information. Further documentation may be found at "http://developers.hyperpublic.com":http://developers.hyperpublic.com. 
