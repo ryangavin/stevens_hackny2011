@@ -25,8 +25,6 @@ def login():
 	id = request.args.get('user_id')
 	return render_template('login.html',key=key, id=id)
 
-
-
 @views.route('/todo/')
 def todo_list():
     """Simple todo page."""
