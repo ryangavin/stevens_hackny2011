@@ -1,21 +1,15 @@
 import urllib
 import settings
+from google.appengine.api import urlfetch
 def getHtml():
 
-	lat = 40
-	lon = 50
-	rad = 25
-	lim = 10
+	lat = "40.74"
+	lon = "-74"
+	rad = "250"
+	lim = "10"
 	tags = ["sex","car","food"]
 	
-	url = "https://api.hyperpublic.com/api/v1/places?
-	lat="+lat+
-	"&lon="+lon+
-	"&radius="+rad+
-	"&limit="+lim+
-	"&tags="+tags+
-	"&client_id="+HYPE_CLIENT_ID+
-	"&client_secret="+HYPE_CLIENT_SECRET
+	url = "http://api.hyperpublic.com/api/v1/places?lat="+lat+"&lon="+lon+"&radius="+rad+"&limit="+lim+"&tags="+"".join(tags)+"&client_id="+settings.HYPE_CLIENT_ID+"&client_secret="+settings.HYPE_CLIENT_SECRET
 	
-	data = urllib.urlopen(url)
-	return data
+	data = urlfetch.fetch(url)
+	return data.content
