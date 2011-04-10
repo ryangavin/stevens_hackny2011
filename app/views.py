@@ -9,7 +9,12 @@ import hyper
 from flask import Module, url_for, render_template, request, redirect
 from models import Todo, User
 from forms import TodoForm, EmailForm
+<<<<<<< HEAD
 import hunch 
+=======
+from decorator import check_login, login_required
+import hunch
+>>>>>>> ccc04ad742e7cf1a1fd6c553416b9e254f4ad0dd
 import main
 import settings
 import simplejson as json
@@ -36,6 +41,7 @@ def test():
 @views.route('/geo/')
 def geo():
     return render_template('geo.html')
+<<<<<<< HEAD
 
 @views.route('/login/', methods=['POST', 'GET'])
 def login():
@@ -46,9 +52,34 @@ def login():
     user.put()
     return render_template('login.html',key=key, userid=user_id)
 
+=======
+	
+@views.route('/slogin')
+def slogin():
+	if 'user_id' in session and session['user_id'] != None:
+		return 'Logged in as %s' % escape(session['user_id'])
+	else:
+		return redirect('http://hunch.com/authorize/v1/?app_id=3145664&next=/')
+		
+
+@views.route('/login/', methods=['POST', 'GET'])
+def login():
+	"""Handle login response from hunch"""
+	session['auth_token_key'] = request.args.get('auth_token_key')
+	session['user_id'] = request.args.get('user_id')
+	return redirect(url_for('slogin'))
+	
+@views.route('/logout')
+def logout():
+    # remove the username from the session if its there
+	session.pop('user_id', None)
+	session.pop('auth_token_key', None)
+	return redirect(url_for('index'))
+>>>>>>> ccc04ad742e7cf1a1fd6c553416b9e254f4ad0dd
 
 
 @views.route('/todo/')
+@login_required	
 def todo_list():
     """Simple todo page."""
     form = TodoForm()
