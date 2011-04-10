@@ -1,5 +1,5 @@
 import urllib
 def getHtml(): 
 	url = "google.com"
-	data = urllib.open(url).read()
+	data = urllib.urlopen(url).read()
 	return data
