@@ -11,6 +11,7 @@ from models import Todo
 from forms import TodoForm, EmailForm
 
 import hunch
+import main
 import settings
 import simplejson as json
 
@@ -19,8 +20,10 @@ views = Module(__name__, 'views')
 
 @views.route('/')
 def index():
-    """HOME PAGE"""
-    return render_template('index.html')
+	"""HOME PAGE"""
+	#tags = hunch.get_tags()
+    #return render_template('index.html')
+	return main.main()
 
 @views.route('/test/')
 def test():
