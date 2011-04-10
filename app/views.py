@@ -9,8 +9,7 @@ import hyper
 from flask import Module, url_for, render_template, request, redirect
 from models import Todo, User
 from forms import TodoForm, EmailForm
-from decorator import login_required
-import hunch
+import hunch 
 import main
 import settings
 import simplejson as json
@@ -39,7 +38,6 @@ def geo():
     return render_template('geo.html')
 
 @views.route('/login/', methods=['POST', 'GET'])
-@login_required
 def login():
     """Handle login response from hunch"""
     key = request.args.get('auth_token_key')
@@ -58,7 +56,7 @@ def todo_list():
     return render_template('todo.html', form=form,
             todos=todos)
 
-@login_required
+
 @views.route('/auth')
 def loggedin():
     return render_template('login.html')
