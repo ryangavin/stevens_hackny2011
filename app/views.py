@@ -6,7 +6,7 @@ application.
 """
 from google.appengine.api import mail
 import hyper
-from flask import Module, url_for, render_template, request, redirect
+from flask import Module, url_for, render_template, request, redirect, session
 from models import Todo, User
 from forms import TodoForm, EmailForm
 import hunch 
