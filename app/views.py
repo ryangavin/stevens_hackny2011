@@ -25,8 +25,11 @@ def index():
 @views.route('/test/')
 def test():
     data = hunch.get_tags()
-
     return data
+
+@views.route('/geo/')
+def geo():
+    return render_template('geo.html')
 
 @views.route('/login/')
 def login():
