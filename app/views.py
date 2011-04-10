@@ -27,7 +27,9 @@ def test():
 @views.route('/')
 def index():
 	"""HOME PAGE"""
-	return render_template('index.html')
+        if check_login():
+	    return main.main()
+        return render_template('index.html')
 	#tags = hunch.get_tags()
 	#return main.main()
 	
