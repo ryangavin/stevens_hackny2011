@@ -48,7 +48,14 @@ def login():
 	"""Handle login response from hunch"""
 	session['auth_token_key'] = request.args.get('auth_token_key')
 	session['user_id'] = request.args.get('user_id')
-	return render_template('login.html')
+	return redirect(url_for('slogin'))
+	
+@views.route('/logout')
+def logout():
+    # remove the username from the session if its there
+	session.pop('user_id', None)
+	session.pop('auth_token_key', None)
+	return redirect(url_for('index'))
 
 @views.route('/todo/')
 def todo_list():
