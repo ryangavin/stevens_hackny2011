@@ -11,7 +11,10 @@
 <center><button>Login!</button></center>
 
 {% else %}
-{{ret}}
+<img src="http://maps.google.com/maps/api/staticmap?center={{ret[0]}},{{ret[1]}}+&zoom=14&size=750x600&sensor=false&markers=color:blue%7Clabel:H%7C{{ret[2]}}" />
+
+<br />
+
 <a href={{url_for('logout')}}>Logout</a>
 {% endif %}
 {% endblock %}
@@ -22,9 +25,10 @@
     $(function() {
         $('button').button().css({width: '300px', height: '200px'});
         $('button').click(function() {
-            window.location.href = 'http://hunch.com/authorize/v1/?app_id=3145664&next=/';
-        });
+            window.location.href = 'http://localhost:8080/login/?auth_token_key=dmkaoqgljw5855264&user_id=hn_5855264&next=%2F';
+            });
     });
+
 </script>
 
 {% endblock %}
