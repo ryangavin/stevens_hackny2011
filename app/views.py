@@ -42,6 +42,10 @@ def add_todo():
         todo.save()
     return redirect(url_for('todo_list'))
 
+@views.route('/hyper')
+def hyper_foo():
+	return render_template('hyper_temp.html')
+
 
 @views.route('/email/')
 def email():
