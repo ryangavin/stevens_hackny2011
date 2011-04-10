@@ -8,6 +8,7 @@ from google.appengine.api import urlfetch
 #tag is a list of tags
 def request_deals(lat, lon, rad, tags):
 	tag_str = ''
+	simon = []
 	for each in tags:
 		tag_str += each.lower()+','
 	tag_str += 'P3'
@@ -18,7 +19,8 @@ def request_deals(lat, lon, rad, tags):
 		pagedata = json.loads(pagedata.contents)
 		for each in pagedata['response']['deals']:
 			out_deals.append([each['title'] , each['business']['locations'][0]['phone'] ])
-	return out_deals
+			simon.append(str(each['division'][lat])+','+str(each['division'][lon]))
+	return simon
 
 
 #dealstuff= request_deals()

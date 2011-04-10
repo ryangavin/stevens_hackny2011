@@ -43,13 +43,14 @@ def main():
 #	ret = ret + hypRet[0] +"<BR/>"
 #	ret = ret + str(yipit_attempt.request_deals(lat, lon , rad , tags))+"<BR/>"
 	markers = []
-	for hypNum in hypRet[1]:
-		for yipNum in yipRet:
-			if hypNum == yipNum[1]:
-				latLon = hypNum[2] + "," + hypNum[3]
-				markers.append(latLon)
-	string = "%7C".join(markers)
+#	for hypNum in hypRet[1]:
+#		for yipNum in yipRet[0]:
+#			if hypNum == yipNum[1]:
+#				latLon = hypNum[2] + "," + hypNum[3]
+#				markers.append(latLon)
+	string = "%7C".join(yipRet)
 	ret.append(hypRet[0])
-	ret.append(string)
+#	ret.append(string)
+	ret.append(hypRet[0])
 #	ret = ret + '<img src="http://maps.google.com/maps/api/staticmap?center='+str(lat)+','+str(lon)+'&zoom=12&size=400x400&sensor=false&markers=color:blue%7Clabel:H%7C'+ string+'" /><BR/>'
 	return render_template('index.html', ret=ret)

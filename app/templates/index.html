@@ -1,7 +1,9 @@
 {% extends "base.html" %}
 
 {% block title %}DeaLocos - Crazy deals fit to you!{% endblock %}
-
+{% block cs %}
+<link rel="stylesheet" href="/css/twit-stream.css" />
+{% endblock %}
 {% block main %}
 {% if not session %}
 <center><img src="/img/logo.png"></img></center>
@@ -11,16 +13,28 @@
 <center><button>Login!</button></center>
 
 {% else %}
+<div style="float:right">
+<p>Five most recent tweets mentioning <a target="_blank" href="http://search.twitter.com/search?q=Yipitnyc">yipitnyc</a>:</p>
+<div class="twitStream 10" id="tweets" title="YipitNYC"></div>
+</div>
+Here are all the places DeaLocos thinks you will like!<BR/>
 <img src="http://maps.google.com/maps/api/staticmap?center={{ret[0]}},{{ret[1]}}+&zoom=14&size=750x600&sensor=false&markers=color:blue%7Clabel:H%7C{{ret[2]}}" />
 
 <br />
 
+Below are all the places with great deals that you will like:<BR/>
+<img src="http://maps.google.com/maps/api/staticmap?center={{ret[0]}},{{ret[1]}}+&zoom=14&size=750x600&sensor=false&markers=color:green%7Clabel:H%7C{{ret[3][:70]}}" />
+
+<br/>
 <a href={{url_for('logout')}}>Logout</a>
 {% endif %}
 {% endblock %}
 
 {% block js %}
-
+<script type="text/javascript" src="/js/twitStream.js"></script>
+<script type="text/javascript">
+showTweetLinks='all';
+</script>
 <script type="text/javascript">
     $(function() {
         $('button').button().css({width: '300px', height: '200px'});
