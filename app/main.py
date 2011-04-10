@@ -2,6 +2,7 @@ import urllib
 import hunch
 import hyper
 import settings
+from flask import request
 import simplejson as json
 from google.appengine.api import urlfetch
 def main():
@@ -15,6 +16,6 @@ def main():
 		for tag in tagLS:
 			tags.append(tag)
 			
-	ret = ret + hyper.getHtml(tags) +"<BR/>"
+	ret = ret + hyper.getHtml(tags, request) +"<BR/>"
 	
 	return ret
