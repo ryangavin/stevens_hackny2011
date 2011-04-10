@@ -27,7 +27,7 @@ def test():
     data = hunch.get_recommendations()
     data = json.loads(data);
 
-    return data['total']
+    return str(data['total'])
 
 @views.route('/login/')
 def login():
