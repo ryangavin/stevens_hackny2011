@@ -28,10 +28,11 @@ def test():
 
 @views.route('/login/')
 def login():
-    """Handle login response from hunch"""
-    key = request.args.get('auth_token_key')
-    id = request.args.get('user_id')
-    return render_template('login.html',key=key, id=id)
+	"""Handle login response from hunch"""
+	key = request.args.get('auth_token_key')
+	id = request.args.get('user_id')
+	return render_template('login.html',key=key, id=id)
+
 
 @views.route('/todo/')
 def todo_list():
