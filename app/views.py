@@ -24,17 +24,16 @@ def index():
 
 @views.route('/test/')
 def test():
-    data = hunch.get_recommendations()
-    data = json.loads(data);
+    data = hunch.get_tags()
 
-    return str(data['total'])
+    return data
 
 @views.route('/login/')
 def login():
-	"""Handle login response from hunch"""
-	key = request.args.get('auth_token_key')
-	id = request.args.get('user_id')
-	return render_template('login.html',key=key, id=id)
+    """Handle login response from hunch"""
+    key = request.args.get('auth_token_key')
+    id = request.args.get('user_id')
+    return render_template('login.html',key=key, id=id)
 
 
 @views.route('/todo/')
@@ -57,7 +56,7 @@ def add_todo():
 
 @views.route('/hyper')
 def hyper_foo():
-	return hyper.getHtml()
+    return hyper.getHtml()
 
 
 @views.route('/email/')
