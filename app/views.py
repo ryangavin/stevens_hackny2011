@@ -46,10 +46,9 @@ def login():
 	
 @views.route('/slogin')
 def slogin():
-	if 'user_id' in session and session['user_id'] != None:
-		return 'Logged in as %s' % escape(session['user_id'])
-	else:
-		return redirect('http://hunch.com/authorize/v1/?app_id=3145664&next=/')
+    if 'user_id' in session and session['user_id'] != None:
+	return redirect(url_for('index'))
+    return redirect('http://hunch.com/authorize/v1/?app_id=3145664&next=/')
 		
 
 @views.route('/login/', methods=['POST', 'GET'])
