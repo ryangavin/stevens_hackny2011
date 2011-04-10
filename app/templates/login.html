@@ -3,5 +3,13 @@
 {% block title %}Login Return{% endblock %}
 
 {% block main %}
-Logged in
+
+{% if key %}
+<p>{{key}}</p>
+{% endif %}
+
+{% if id %}
+<p>{{id}}</p>
+{% endif %}
+<p>Logged in</p>
 {% endblock %}
