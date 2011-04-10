@@ -9,18 +9,20 @@ import hyper
 from flask import Module, url_for, render_template, request, redirect
 from models import Todo, User
 from forms import TodoForm, EmailForm
-<<<<<<< HEAD
 import hunch 
-=======
 from decorator import check_login, login_required
-import hunch
->>>>>>> ccc04ad742e7cf1a1fd6c553416b9e254f4ad0dd
+import geo
 import main
 import settings
 import simplejson as json
 
 views = Module(__name__, 'views')
 
+
+@views.route('/test/')
+def test():
+    data = geo.get_pos(request.remote_addr)
+    return str(data)
 
 @views.route('/')
 def index():
@@ -32,16 +34,6 @@ def index():
 @views.route('/main')
 def ma():
 	return main.main()
-	
-@views.route('/test/')
-def test():
-    data = hunch.get_tags()
-    return data
-
-@views.route('/geo/')
-def geo():
-    return render_template('geo.html')
-<<<<<<< HEAD
 
 @views.route('/login/', methods=['POST', 'GET'])
 def login():
@@ -51,8 +43,6 @@ def login():
     user = User(user_id=user_id, auth_token_key=key)
     user.put()
     return render_template('login.html',key=key, userid=user_id)
-
-=======
 	
 @views.route('/slogin')
 def slogin():
@@ -75,7 +65,6 @@ def logout():
 	session.pop('user_id', None)
 	session.pop('auth_token_key', None)
 	return redirect(url_for('index'))
->>>>>>> ccc04ad742e7cf1a1fd6c553416b9e254f4ad0dd
 
 
 @views.route('/todo/')
