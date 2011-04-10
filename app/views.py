@@ -12,6 +12,7 @@ from forms import TodoForm, EmailForm
 
 import hunch
 import settings
+import simplejson as json
 
 views = Module(__name__, 'views')
 
@@ -24,7 +25,9 @@ def index():
 @views.route('/test/')
 def test():
     data = hunch.get_recommendations()
-    return data
+    data = json.loads(data);
+
+    return data['total']
 
 @views.route('/login/')
 def login():
