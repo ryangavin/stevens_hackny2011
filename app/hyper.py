@@ -21,7 +21,7 @@ def getHtml(ts, request):
 	for tag in ts:
 		tag = tag.replace(" ","%20")
 		url = "https://api.hyperpublic.com/api/v1/places?lat="+lat+"&lon="+lon+"&radius="+rad+"&limit="+lim+"&tags="+tag+"&client_id="+settings.HYPE_CLIENT_ID+"&client_secret="+settings.HYPE_CLIENT_SECRET
-		data = urlfetch.fetch(url)
+		data = urlfetch.fetch(url, deadline=10)
 		if data.status_code == 200:
 			places = json.loads(data.content)
 			for place in places:

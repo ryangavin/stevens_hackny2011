@@ -13,7 +13,7 @@ def request_deals(lat, lon, rad, tags):
 	tag_str += 'P3'
 	base = 'http://api.yipit.com/v1/deals/?key=uqfEMBjPGCyfcxNV'
 	out_deals = []
-	pagedata = urlfetch.fetch(base+'&lat='+str(lat)+"&lon="+str(lon)+'&radius='+str(rad)+'&tag='+tag_str)
+	pagedata = urlfetch.fetch(base+'&lat='+str(lat)+"&lon="+str(lon)+'&radius='+str(rad)+'&tag='+tag_str,deadline=10)
 	if pagedata.status_code == 200:
 		pagedata = json.loads(pagedata.contents)
 		for each in pagedata['response']['deals']:
