@@ -36,8 +36,8 @@ def filter_deals(deals = {}, tags = {'movies' , 'food' , 'music' , 'P3'}):
 	return filtered_deals
 	print filtered_deals
 """
-deals = request_deals()
-print deals
+#deals = request_deals()
+#print deals
 
 
 
