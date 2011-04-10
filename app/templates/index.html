@@ -1,7 +1,26 @@
 {% extends "base.html" %}
 
-{% block title %}ohai html5 boilerplate{% endblock %}
+{% block title %}DeaLocos - Crazy deals fit to you!{% endblock %}
 
 {% block main %}
-TEST
+{% if not session %}
+<center><button>Login!</button></center>
+
+{% else %}
+Display the website here fuckers
+<a href={{url_for('logout')}}>Logout</a>
+{% endif %}
+{% endblock %}
+
+{% block js %}
+
+<script type="text/javascript">
+    $(function() {
+        $('button').button().css({width: '300px', height: '200px'});
+        $('button').click(function() {
+            window.location.href = 'http://hunch.com/authorize/v1/?app_id=3145664&next=/';
+        });
+    });
+</script>
+
 {% endblock %}
