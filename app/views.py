@@ -12,6 +12,7 @@ from forms import TodoForm, EmailForm
 from decorator import login_required
 import hunch
 import settings
+import simplejson as json
 
 views = Module(__name__, 'views')
 
@@ -23,7 +24,8 @@ def index():
 
 @views.route('/test/')
 def test():
-    data = hunch.get_recommendations()
+    data = hunch.get_tags()
+
     return data
 
 @views.route('/login/', methods=['POST', 'GET'])
@@ -35,6 +37,7 @@ def login():
 	user = User(user_id=user_id, auth_token_key=key)
 	user.put()
 	return render_template('login.html',key=key, userid=user_id)
+
 
 
 @views.route('/todo/')
@@ -61,7 +64,6 @@ def add_todo():
 
 @views.route('/hyper')
 def hyper_foo():
-
 	return hyper.getHtml()
 
 
