@@ -32,7 +32,8 @@ def getHtml(ts, request):
 					latLon = place["locations"][0]["lat"] + "," + place["locations"][0]["lon"]
 					markers.append(latLon)
 	string = "%7C".join(markers)
-	ret[0] = '<img src="http://maps.google.com/maps/api/staticmap?center='+lat+','+lon+'&zoom=12&size=400x400&sensor=false&markers=color:blue%7Clabel:H%7C'+ string+'" />'
+#	ret[0] = '<img src="http://maps.google.com/maps/api/staticmap?center='+lat+','+lon+'&zoom=12&size=400x400&sensor=false&markers=color:blue%7Clabel:H%7C'+ string+'" />'
+	ret[0] = string
 	ret[1] = nums
 	ret[2] = lata
 	ret[3] = long
