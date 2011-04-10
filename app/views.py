@@ -5,7 +5,7 @@ This file is used for both the routing and logic of your
 application.
 """
 from google.appengine.api import mail
-
+import hyper
 from flask import Module, url_for, render_template, request, redirect
 from models import Todo
 from forms import TodoForm, EmailForm
@@ -44,7 +44,7 @@ def add_todo():
 
 @views.route('/hyper')
 def hyper_foo():
-	return render_template('hyper_temp.html')
+	return hyper.getHtml()
 
 
 @views.route('/email/')
