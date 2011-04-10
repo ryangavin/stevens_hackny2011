@@ -11,6 +11,7 @@ from models import Todo, User
 from forms import TodoForm, EmailForm
 from decorator import login_required
 import hunch
+import main
 import settings
 import simplejson as json
 
@@ -19,14 +20,19 @@ views = Module(__name__, 'views')
 
 @views.route('/')
 def index():
-    """HOME PAGE"""
-    return render_template('index.html')
+	"""HOME PAGE"""
+	#tags = hunch.get_tags()
+    #return render_template('index.html')
+	return main.main()
 
 @views.route('/test/')
 def test():
     data = hunch.get_tags()
-
     return data
+	
+@views.route('/geo/')
+def geo():
+    return render_template('geo.html')
 	
 @views.route('/slogin')
 def slogin():
@@ -35,14 +41,13 @@ def slogin():
 	else:
 		return redirect('http://hunch.com/authorize/v1/?app_id=3145664&next=/')
 		
+
 @views.route('/login/', methods=['POST', 'GET'])
 def login():
 	"""Handle login response from hunch"""
 	session['auth_token_key'] = request.args.get('auth_token_key')
 	session['user_id'] = request.args.get('user_id')
 	return render_template('login.html')
-
-
 
 @views.route('/todo/')
 def todo_list():
@@ -51,11 +56,6 @@ def todo_list():
     todos = Todo.all().order('-created_at')
     return render_template('todo.html', form=form,
             todos=todos)
-
-@login_required
-@views.route('/auth')
-def loggedin():
-	return render_template('login.html')
 
 @views.route('/todo/add', methods=["POST"])
 def add_todo():
@@ -68,7 +68,7 @@ def add_todo():
 
 @views.route('/hyper')
 def hyper_foo():
-	return hyper.getHtml()
+    return hyper.getHtml()
 
 
 @views.route('/email/')

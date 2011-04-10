@@ -2,13 +2,17 @@ import urllib
 import settings
 import simplejson as json
 from google.appengine.api import urlfetch
-def getHtml():
+def getHtml(ts):
 
 	lat = "40.74"
 	lon = "-74"
 	rad = "250"
-	lim = "10"
-	tags = ["bar","food"]
+	lim = "25"
+	tags = []
+	
+	for tagLS in ts:
+		for tag in tagLS:
+			tags.append(tag)
 
 	url = "https://api.hyperpublic.com/api/v1/places?lat="+lat+"&lon="+lon+"&radius="+rad+"&limit="+lim+"&tags="+",".join(tags)+"&client_id="+settings.HYPE_CLIENT_ID+"&client_secret="+settings.HYPE_CLIENT_SECRET
 	
