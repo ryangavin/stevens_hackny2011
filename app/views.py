@@ -11,6 +11,7 @@ from models import Todo, User
 from forms import TodoForm, EmailForm
 from decorator import check_login
 import hunch
+import geo
 import main
 import settings
 import simplejson as json
@@ -18,22 +19,17 @@ import simplejson as json
 views = Module(__name__, 'views')
 
 
+@views.route('/test/')
+def test():
+    data = geo.get_pos(request.remote_addr)
+    return str(data)
+
 @views.route('/')
 def index():
 	"""HOME PAGE"""
 	#tags = hunch.get_tags()
 	return render_template('index.html')
 	#return main.main()
-
-
-@views.route('/test/')
-def test():
-    data = hunch.get_tags()
-    return data
-	
-@views.route('/geo/')
-def geo():
-    return render_template('geo.html')
 	
 @views.route('/slogin')
 def slogin():
