@@ -64,7 +64,7 @@ def logout():
     # remove the username from the session if its there
 	session.pop('user_id', None)
 	session.pop('auth_token_key', None)
-	return redirect(url_for('index'))
+	return redirect('http://hunch.com/people/logout/?next=/http://dealocos.appspot.com/')
 
 
 @views.route('/todo/')
