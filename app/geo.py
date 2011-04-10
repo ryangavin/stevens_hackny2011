@@ -1,9 +1,10 @@
+from urllib import urlopen
+from flask import urlfor
+import simplejson as json
+
 def get_pos():
     pos = []
-    return pos
 
-def get_lat():
-    return 0
-
-def get_lon():
-    return 0
+    data = urllib.urlopen(urlfor('geo')).read()
+    data = json.loads(data)
+    return data
