@@ -11,4 +11,4 @@ def get_tags():
     for a in data:
         tags.append(a['tags'])
 
-    return str(tags)
+    return tags

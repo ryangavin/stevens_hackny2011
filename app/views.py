@@ -7,9 +7,9 @@ application.
 from google.appengine.api import mail
 import hyper
 from flask import Module, url_for, render_template, request, redirect
-from models import Todo
+from models import Todo, User
 from forms import TodoForm, EmailForm
-
+from decorator import login_required
 import hunch
 import main
 import settings
@@ -28,15 +28,22 @@ def index():
 @views.route('/test/')
 def test():
     data = hunch.get_tags()
-
     return data
 
-@views.route('/login/')
+@views.route('/geo/')
+def geo():
+    return render_template('geo.html')
+
+@views.route('/login/', methods=['POST', 'GET'])
+@login_required
 def login():
     """Handle login response from hunch"""
     key = request.args.get('auth_token_key')
-    id = request.args.get('user_id')
-    return render_template('login.html',key=key, id=id)
+    user_id = request.args.get('user_id')
+    user = User(user_id=user_id, auth_token_key=key)
+    user.put()
+    return render_template('login.html',key=key, userid=user_id)
+
 
 
 @views.route('/todo/')
@@ -47,6 +54,10 @@ def todo_list():
     return render_template('todo.html', form=form,
             todos=todos)
 
+@login_required
+@views.route('/auth')
+def loggedin():
+    return render_template('login.html')
 
 @views.route('/todo/add', methods=["POST"])
 def add_todo():
