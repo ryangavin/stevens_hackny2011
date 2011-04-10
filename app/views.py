@@ -27,23 +27,19 @@ def test():
     data = hunch.get_tags()
     return data
 
-<<<<<<< HEAD
 @views.route('/geo/')
 def geo():
     return render_template('geo.html')
 
-@views.route('/login/')
-=======
 @views.route('/login/', methods=['POST', 'GET'])
 @login_required
->>>>>>> 6bae60eb8025f8a26116e5d00f6aeb653dde51df
 def login():
-	"""Handle login response from hunch"""
-	key = request.args.get('auth_token_key')
-	user_id = request.args.get('user_id')
-	user = User(user_id=user_id, auth_token_key=key)
-	user.put()
-	return render_template('login.html',key=key, userid=user_id)
+    """Handle login response from hunch"""
+    key = request.args.get('auth_token_key')
+    user_id = request.args.get('user_id')
+    user = User(user_id=user_id, auth_token_key=key)
+    user.put()
+    return render_template('login.html',key=key, userid=user_id)
 
 
 
@@ -58,7 +54,7 @@ def todo_list():
 @login_required
 @views.route('/auth')
 def loggedin():
-	return render_template('login.html')
+    return render_template('login.html')
 
 @views.route('/todo/add', methods=["POST"])
 def add_todo():
@@ -71,7 +67,7 @@ def add_todo():
 
 @views.route('/hyper')
 def hyper_foo():
-	return hyper.getHtml()
+    return hyper.getHtml()
 
 
 @views.route('/email/')
