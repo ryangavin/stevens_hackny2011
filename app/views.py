@@ -10,6 +10,9 @@ from flask import Module, url_for, render_template, request, redirect
 from models import Todo
 from forms import TodoForm, EmailForm
 
+import hunch
+import settings
+
 views = Module(__name__, 'views')
 
 
@@ -18,12 +21,18 @@ def index():
     """HOME PAGE"""
     return render_template('index.html')
 
+@views.route('/test/')
+def test():
+    data = hunch.get_recommendations()
+    return data
+
 @views.route('/login/')
 def login():
 	"""Handle login response from hunch"""
 	key = request.args.get('auth_token_key')
 	id = request.args.get('user_id')
 	return render_template('login.html',key=key, id=id)
+
 
 @views.route('/todo/')
 def todo_list():
