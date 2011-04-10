@@ -7,9 +7,9 @@ application.
 from google.appengine.api import mail
 import hyper
 from flask import Module, url_for, render_template, request, redirect
-from models import Todo
+from models import Todo, User
 from forms import TodoForm, EmailForm
-
+from decorator import login_required
 import hunch
 import settings
 import simplejson as json
@@ -27,16 +27,24 @@ def test():
     data = hunch.get_tags()
     return data
 
+<<<<<<< HEAD
 @views.route('/geo/')
 def geo():
     return render_template('geo.html')
 
 @views.route('/login/')
+=======
+@views.route('/login/', methods=['POST', 'GET'])
+@login_required
+>>>>>>> 6bae60eb8025f8a26116e5d00f6aeb653dde51df
 def login():
-    """Handle login response from hunch"""
-    key = request.args.get('auth_token_key')
-    id = request.args.get('user_id')
-    return render_template('login.html',key=key, id=id)
+	"""Handle login response from hunch"""
+	key = request.args.get('auth_token_key')
+	user_id = request.args.get('user_id')
+	user = User(user_id=user_id, auth_token_key=key)
+	user.put()
+	return render_template('login.html',key=key, userid=user_id)
+
 
 
 @views.route('/todo/')
@@ -47,6 +55,10 @@ def todo_list():
     return render_template('todo.html', form=form,
             todos=todos)
 
+@login_required
+@views.route('/auth')
+def loggedin():
+	return render_template('login.html')
 
 @views.route('/todo/add', methods=["POST"])
 def add_todo():
@@ -59,7 +71,7 @@ def add_todo():
 
 @views.route('/hyper')
 def hyper_foo():
-    return hyper.getHtml()
+	return hyper.getHtml()
 
 
 @views.route('/email/')
