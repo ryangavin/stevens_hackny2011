@@ -1,5 +1,6 @@
 import urllib
 import settings
+import simplejson as json
 from google.appengine.api import urlfetch
 def getHtml():
 
@@ -7,22 +8,20 @@ def getHtml():
 	lon = "-74"
 	rad = "250"
 	lim = "10"
-	tags = ["sex","car","food"]
+	tags = ["bar","food"]
 	
-<<<<<<< HEAD
-	url = "http://api.hyperpublic.com/api/v1/places?lat="+lat+"&lon="+lon+"&radius="+rad+"&limit="+lim+"&tags="+"".join(tags)+"&client_id="+settings.HYPE_CLIENT_ID+"&client_secret="+settings.HYPE_CLIENT_SECRET
+	url = "https://api.hyperpublic.com/api/v1/places?lat="+lat+"&lon="+lon+"&radius="+rad+"&limit="+lim+"&tags="+",".join(tags)+"&client_id="+settings.HYPE_CLIENT_ID+"&client_secret="+settings.HYPE_CLIENT_SECRET
 	
 	data = urlfetch.fetch(url)
-	return data.content
-=======
-	url = "https://api.hyperpublic.com/api/v1/places?lat="+lat+
-	    "&lon="+lon+
-	    "&radius="+rad+
-	    "&limit="+lim+
-	    "&tags="+tags+
-	    "&client_id="+HYPE_CLIENT_ID+
-	    "&client_secret="+HYPE_CLIENT_SECRET
 	
-	data = urllib.urlopen(url)
-	return data
->>>>>>> bef4eb43d301baa3a57905503c6843ed1386aaeb
+	places = data.content
+	places = json.loads(places)
+	markers = []
+	for place in places:
+		#if place.locations[0].lat & place.locations[0].lon:
+		if place["locations"][0]["lat"] and place["locations"][0]["lon"] :
+			latLon = place["locations"][0]["lat"] + "," + place["locations"][0]["lon"] 
+			markers.append(latLon)
+	string = "%7c".join(markers)
+	ret = '<img src="http://maps.google.com/maps/api/staticmap?center='+lat+','+lon+'&zoom=12&size=400x400&sensor=false&markers=color:blue%7Clabel:H%7C'+ string+'" />'
+	return ret
