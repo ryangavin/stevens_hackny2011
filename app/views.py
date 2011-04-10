@@ -25,6 +25,7 @@ def index():
 	return render_template('index.html')
 	#return main.main()
 
+
 @views.route('/test/')
 def test():
     data = hunch.get_tags()
