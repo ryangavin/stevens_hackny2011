@@ -6,7 +6,7 @@ application.
 """
 from google.appengine.api import mail
 import hyper
-from flask import Module, url_for, render_template, request, redirect
+from flask import Module, escape, render_template, request, redirect, session, url_for
 from models import Todo, User
 from forms import TodoForm, EmailForm
 from decorator import login_required
@@ -27,16 +27,20 @@ def test():
     data = hunch.get_tags()
 
     return data
-
+	
+@views.route('/slogin')
+def slogin():
+	if 'user_id' in session:
+		return 'Logged in as %s' % escape(session['user_id'])
+	else:
+		return redirect('http://hunch.com/authorize/v1/?app_id=3145664&next=/')
+		
 @views.route('/login/', methods=['POST', 'GET'])
-@login_required
 def login():
 	"""Handle login response from hunch"""
-	key = request.args.get('auth_token_key')
-	user_id = request.args.get('user_id')
-	user = User(user_id=user_id, auth_token_key=key)
-	user.put()
-	return render_template('login.html',key=key, userid=user_id)
+	session['auth_token_key'] = request.args.get('auth_token_key')
+	session['user_id'] = request.args.get('user_id')
+	return render_template('login.html')
 
 
 
