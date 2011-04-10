@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+
+{% block title %}Hyper Request{% endblock %}
+
+
+{% block main %}
+import settings
+
+lat = 40
+lon = 50
+rad = 20
+lim = 25
+tags = [sex, car, food]
+
+string = "https://api.hyperpublic.com/api/v1/places?
+lat="+lat+
+"&lon="+lon+
+"&radius="+rad+
+"&limit="+lim+
+"&tags="+tags+
+"&client_id="+HYPE_CLIENT_ID+
+"&client_secret="+HYPE_CLIENT_SECRET
+
+httpServ = httplib.HTTPConnection("https://api.hyperpublic.com/api/v1/places", 443)
+httpServ.connect()
+
+httpServ.request('GET', string)
+
+response = httpServ.getresponse()
+if response.status == httplib.OK:
+    print "Output from HTML request"
+    printText (response.read())
+
+{% endblock %}
