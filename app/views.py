@@ -9,7 +9,7 @@ import hyper
 from flask import Module, escape, render_template, request, redirect, session, url_for
 from models import Todo, User
 from forms import TodoForm, EmailForm
-from decorator import check_login
+from decorator import check_login, login_required
 import hunch
 import main
 import settings
@@ -37,7 +37,7 @@ def geo():
 	
 @views.route('/slogin')
 def slogin():
-	if 'user_id' in session:
+	if 'user_id' in session and session['user_id'] != None:
 		return 'Logged in as %s' % escape(session['user_id'])
 	else:
 		return redirect('http://hunch.com/authorize/v1/?app_id=3145664&next=/')
@@ -57,7 +57,9 @@ def logout():
 	session.pop('auth_token_key', None)
 	return redirect(url_for('index'))
 
+
 @views.route('/todo/')
+@login_required	
 def todo_list():
     """Simple todo page."""
     form = TodoForm()
