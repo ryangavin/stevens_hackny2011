@@ -18,8 +18,6 @@ def request_deals(lat, lon, rad, tags):
 		pagedata = json.loads(pagedata.contents)
 		for each in pagedata['response']['deals']:
 			out_deals.append([each['title'] , each['business']['locations'][0]['phone'] ])
-	else:
-		print 'fucking error man\n'
 	return out_deals
 
 

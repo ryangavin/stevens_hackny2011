@@ -4,7 +4,7 @@ import hyper
 import geo
 import yipit_attempt
 import settings
-from flask import request
+from flask import request, render_template
 import simplejson as json
 from google.appengine.api import urlfetch
 
