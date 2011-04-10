@@ -12,8 +12,9 @@ def getHtml(ts):
 	
 	for tagLS in ts:
 		for tag in tagLS:
-			tags.append(tag)
+			tags.append(str(tag))
 
+	
 	url = "https://api.hyperpublic.com/api/v1/places?lat="+lat+"&lon="+lon+"&radius="+rad+"&limit="+lim+"&tags="+",".join(tags)+"&client_id="+settings.HYPE_CLIENT_ID+"&client_secret="+settings.HYPE_CLIENT_SECRET
 	
 	data = urlfetch.fetch(url)
