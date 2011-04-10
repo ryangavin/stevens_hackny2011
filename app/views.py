@@ -18,6 +18,10 @@ def index():
     """HOME PAGE"""
     return render_template('index.html')
 
+@views.route('/login/')
+def login():
+    """Handle login response from hunch"""
+    return render_template('login.html')
 
 @views.route('/todo/')
 def todo_list():
