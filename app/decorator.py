@@ -1,4 +1,4 @@
-from flask import session,
+from flask import session
 
 
 def check_login():

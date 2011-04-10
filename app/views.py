@@ -9,7 +9,7 @@ import hyper
 from flask import Module, escape, render_template, request, redirect, session, url_for
 from models import Todo, User
 from forms import TodoForm, EmailForm
-from decorator import login_required
+from decorator import check_login
 import hunch
 import main
 import settings
@@ -22,8 +22,8 @@ views = Module(__name__, 'views')
 def index():
 	"""HOME PAGE"""
 	#tags = hunch.get_tags()
-    #return render_template('index.html')
-	return main.main()
+	return render_template('index.html')
+	#return main.main()
 
 @views.route('/test/')
 def test():
