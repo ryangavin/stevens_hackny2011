@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block title %}Test{% endblock %}
+
+{% block main %}
+{% for recs in data %}
+<ul>{{recs}}</ul>
+{% endfor %}
+{% endblock %}
