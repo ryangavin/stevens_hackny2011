@@ -6,7 +6,7 @@ application.
 """
 from google.appengine.api import mail
 import hyper
-from flask import Module, url_for, render_template, request, redirect
+from flask import Module, escape, render_template, request, redirect, session, url_for
 from models import Todo, User
 from forms import TodoForm, EmailForm
 from decorator import login_required
@@ -29,22 +29,25 @@ def index():
 def test():
     data = hunch.get_tags()
     return data
-
+	
 @views.route('/geo/')
 def geo():
     return render_template('geo.html')
+	
+@views.route('/slogin')
+def slogin():
+	if 'user_id' in session:
+		return 'Logged in as %s' % escape(session['user_id'])
+	else:
+		return redirect('http://hunch.com/authorize/v1/?app_id=3145664&next=/')
+		
 
 @views.route('/login/', methods=['POST', 'GET'])
-@login_required
 def login():
-    """Handle login response from hunch"""
-    key = request.args.get('auth_token_key')
-    user_id = request.args.get('user_id')
-    user = User(user_id=user_id, auth_token_key=key)
-    user.put()
-    return render_template('login.html',key=key, userid=user_id)
-
-
+	"""Handle login response from hunch"""
+	session['auth_token_key'] = request.args.get('auth_token_key')
+	session['user_id'] = request.args.get('user_id')
+	return render_template('login.html')
 
 @views.route('/todo/')
 def todo_list():
@@ -53,11 +56,6 @@ def todo_list():
     todos = Todo.all().order('-created_at')
     return render_template('todo.html', form=form,
             todos=todos)
-
-@login_required
-@views.route('/auth')
-def loggedin():
-    return render_template('login.html')
 
 @views.route('/todo/add', methods=["POST"])
 def add_todo():
