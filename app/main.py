@@ -49,6 +49,7 @@ def main():
 				latLon = hypNum[2] + "," + hypNum[3]
 				markers.append(latLon)
 	string = "%7C".join(markers)
+	ret.append(hypRet[0])
 	ret.append(string)
 #	ret = ret + '<img src="http://maps.google.com/maps/api/staticmap?center='+str(lat)+','+str(lon)+'&zoom=12&size=400x400&sensor=false&markers=color:blue%7Clabel:H%7C'+ string+'" /><BR/>'
-	return render_template('index.html', ret)
+	return render_template('index.html', ret=ret)
