@@ -6,11 +6,12 @@ application.
 """
 from google.appengine.api import mail
 import hyper
-from flask import Module, escape, render_template, request, redirect, session, url_for
+from flask import Module, url_for, render_template, request, redirect
 from models import Todo, User
 from forms import TodoForm, EmailForm
+import hunch 
 from decorator import check_login, login_required
-import hunch
+import geo
 import main
 import settings
 import simplejson as json
@@ -18,22 +19,30 @@ import simplejson as json
 views = Module(__name__, 'views')
 
 
+@views.route('/test/')
+def test():
+    data = geo.get_pos(request.remote_addr)
+    return str(data)
+
 @views.route('/')
 def index():
 	"""HOME PAGE"""
-	#tags = hunch.get_tags()
 	return render_template('index.html')
+	#tags = hunch.get_tags()
 	#return main.main()
-
-
-@views.route('/test/')
-def test():
-    data = hunch.get_tags()
-    return data
 	
-@views.route('/geo/')
-def geo():
-    return render_template('geo.html')
+@views.route('/main')
+def ma():
+	return main.main()
+
+@views.route('/login/', methods=['POST', 'GET'])
+def login():
+    """Handle login response from hunch"""
+    key = request.args.get('auth_token_key')
+    user_id = request.args.get('user_id')
+    user = User(user_id=user_id, auth_token_key=key)
+    user.put()
+    return render_template('login.html',key=key, userid=user_id)
 	
 @views.route('/slogin')
 def slogin():
@@ -66,6 +75,11 @@ def todo_list():
     todos = Todo.all().order('-created_at')
     return render_template('todo.html', form=form,
             todos=todos)
+
+
+@views.route('/auth')
+def loggedin():
+    return render_template('login.html')
 
 @views.route('/todo/add', methods=["POST"])
 def add_todo():
