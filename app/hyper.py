@@ -9,7 +9,7 @@ def getHtml():
 	rad = "250"
 	lim = "10"
 	tags = ["bar","food"]
-	
+
 	url = "https://api.hyperpublic.com/api/v1/places?lat="+lat+"&lon="+lon+"&radius="+rad+"&limit="+lim+"&tags="+",".join(tags)+"&client_id="+settings.HYPE_CLIENT_ID+"&client_secret="+settings.HYPE_CLIENT_SECRET
 	
 	data = urlfetch.fetch(url)
